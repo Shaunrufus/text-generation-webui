@@ -5,7 +5,7 @@ import sys
 from collections import OrderedDict
 from pathlib import Path
 
-import yaml
+import yaml # type: ignore
 
 from modules.logging_colors import logger
 
@@ -376,11 +376,14 @@ if args.api or args.public_api:
     add_extension('openai', last=True)
 
 # Load model-specific settings
-with Path(f'{args.model_dir}/config.yaml') as p:
-    if p.exists():
-        model_config = yaml.safe_load(open(p, 'r').read())
-    else:
-        model_config = {}
+p = Path(f'{args.model_dir}/config.yaml')
+if p.exists():
+    with open(p, 'r') as f:
+        # Process the file here
+        pass
+
+
+model_config = {}
 
 # Load custom model-specific settings
 user_config = load_user_config()
